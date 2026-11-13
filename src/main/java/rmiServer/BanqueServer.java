@@ -1,4 +1,31 @@
 package rmiServer;
+import rmiService.BanqueImpl;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import java.rmi.registry.LocateRegistry;
 public class BanqueServer {
-}
+
+
+        public static void main(String[] args) {
+
+            try {
+
+                LocateRegistry.createRegistry(1099);
+
+                BanqueImpl obj = new BanqueImpl();
+
+                Context ctx = new InitialContext();
+
+                ctx.rebind("BK", obj);
+
+                System.out.println(
+                        "Serveur JNDI démarré..."
+                );
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
